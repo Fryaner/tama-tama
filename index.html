@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тама Тама - Центр раннего развития</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .rainbow-text span {
+            display: inline-block;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        .rainbow-text span:nth-child(1) { color: #FF6B6B; animation-delay: 0s; }
+        .rainbow-text span:nth-child(2) { color: #FFB84D; animation-delay: 0.1s; }
+        .rainbow-text span:nth-child(3) { color: #FFE66D; animation-delay: 0.2s; }
+        .rainbow-text span:nth-child(4) { color: #4ECDC4; animation-delay: 0.3s; }
+        .rainbow-text span:nth-child(5) { color: #95E1D3; animation-delay: 0.4s; }
+        .rainbow-text span:nth-child(6) { color: #FF6B6B; animation-delay: 0.5s; }
+        .rainbow-text span:nth-child(7) { color: #C7A3FF; animation-delay: 0.6s; }
+        .rainbow-text span:nth-child(8) { color: #FFB84D; animation-delay: 0.7s; }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+        
+        .rainbow-line {
+            height: 8px;
+            background: linear-gradient(90deg, #FF6B6B, #FFB84D, #FFE66D, #4ECDC4, #95E1D3, #C7A3FF, #FF9FF3);
+            border-radius: 10px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 20px;
+            animation: modalSlideIn 0.3s ease;
+            position: relative;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #C7A3FF;
+            border-radius: 10px;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            max-width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 99;
+            padding: 100px 30px 40px;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .mobile-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .mobile-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            max-width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 98;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .burger-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .burger-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .burger-btn span {
+            width: 28px;
+            height: 3px;
+            background: #8B5CF6;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .burger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        
+        .burger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        .container {
+            max-width: 100%;
+        }
+        
+        section {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .burger-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body class="bg-amber-50" style="max-width: 100vw; overflow-x: hidden;">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50" style="max-width: 100vw;">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <img src="lXYbAvucAcfB2RwqnFjuN" alt="Тама Тама" class="h-16 md:h-20 w-auto">
+                    <div class="text-2xl md:text-3xl font-bold">
+                        <span style="color: #FF6B6B;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FFE66D;">м</span><span style="color: #4ECDC4;">а</span>
+                        <span style="color: #95E1D3;">Т</span><span style="color: #C7A3FF;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #FF6B6B;">а</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-700 hover:text-pink-500 font-semibold transition">О нас</a>
+                    <a href="#programs" class="text-gray-700 hover:text-purple-500 font-semibold transition">Программы</a>
+                    <a href="#individual" class="text-gray-700 hover:text-teal-500 font-semibold transition">Индивидуальные</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-orange-500 font-semibold transition">Цены</a>
+                    <a href="#contacts" class="text-gray-700 hover:text-blue-500 font-semibold transition">Контакты</a>
+                </div>
+                <div class="burger-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <a href="#contacts" class="hidden md:block bg-pink-500 text-white px-6 py-2 rounded-full font-bold hover:bg-pink-600 transition">
+                    Записаться
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Backdrop -->
+    <div class="mobile-backdrop" id="mobileBackdrop" onclick="toggleMobileMenu()"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-close" onclick="toggleMobileMenu()">
+            ×
+        </div>
+        <div class="flex flex-col space-y-6">
+            <div class="text-center mb-8">
+                <div class="text-5xl font-bold mb-3">
+                    <span style="color: #FFE66D;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #4ECDC4;">а</span>
+                    <span style="color: #95E1D3;">Т</span><span style="color: #FFE66D;">а</span><span style="color: #FFB84D;">м</span><span style="color: #FF9FF3;">а</span>
+                </div>
+                <div class="h-1 w-24 mx-auto bg-gradient-to-r from-pink-400 to-purple-400 rounded-full"></div>
+            </div>
+            
+            <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">🏠 О нас</a>
+            <a href="#programs" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">📚 Программы</a>
+            <a href="#individual" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">👤 Индивидуальные</a>
+            <a href="#pricing" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">💰 Цены</a>
+            <a href="#contacts" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">📞 Контакты</a>
+            
+            <div class="pt-8">
+                <a href="#contacts" onclick="toggleMobileMenu()" class="block bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-5 rounded-full font-bold hover:from-pink-600 hover:to-purple-600 transition text-center text-xl shadow-2xl">
+                    ✨ Записаться
+                </a>
+            </div>
+            
+            <div class="flex justify-center space-x-8 pt-8">
+                <a href="https://t.me/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
+                <a href="https://wa.me/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
+                <a href="https://instagram.com/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden bg-sky-100">
+        <!-- Rainbow Arc -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl" style="height: 300px;">
+            <svg viewBox="0 0 1000 300" class="w-full h-full opacity-30">
+                <path d="M 0,300 Q 500,0 1000,300" fill="none" stroke="#FF6B6B" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,30 1000,300" fill="none" stroke="#FFB84D" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,60 1000,300" fill="none" stroke="#FFE66D" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,90 1000,300" fill="none" stroke="#4ECDC4" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,120 1000,300" fill="none" stroke="#95E1D3" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,150 1000,300" fill="none" stroke="#C7A3FF" stroke-width="40" opacity="0.6"/>
+                <path d="M 0,300 Q 500,180 1000,300" fill="none" stroke="#FF9FF3" stroke-width="40" opacity="0.6"/>
+            </svg>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-6xl md:text-8xl font-extrabold mb-8 rainbow-text leading-tight">
+                    <span>Т</span><span>а</span><span>м</span><span>а</span> <span>Т</span><span>а</span><span>м</span><span>а</span>
+                </h1>
+                <div class="rainbow-line w-64 mx-auto mb-8"></div>
+                <p class="text-2xl md:text-3xl text-gray-700 mb-8 font-semibold">
+                    Творим будущее сегодня
+                </p>
+                <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Работаем по принципу комплексного подхода к раннему развитию и коррекции нарушений у детей. Наша миссия направлена на желание помочь ребёнку развиваться и адаптироваться к окружающей среде 🌈
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#programs" class="bg-purple-500 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-purple-600 transition shadow-lg">
+                        Наши программы
+                    </a>
+                    <a href="#contacts" class="bg-white text-purple-500 px-8 py-4 rounded-full text-xl font-bold hover:bg-purple-50 transition shadow-lg border-4 border-purple-500">
+                        Получить консультацию
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">
+                <span style="color: #FF6B6B;">О</span> 
+                <span style="color: #4ECDC4;">нас</span>
+            </h2>
+            <div class="rainbow-line w-48 mx-auto mb-12"></div>
+            
+            <div class="max-w-4xl mx-auto mb-16 text-center">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    Намного легче предотвратить проблемы, чем бороться с последствиями. В этом контексте своевременное обращение родителей к специалистам играет решающую роль. Каждый момент важен, и чем раньше вы заметите тревожные моменты в развитии у ребенка, тем быстрее и эффективнее сработают коррекционные меры.
+                </p>
+                <p class="text-lg text-gray-600">
+                    Мы предлагаем комплексный подход к работе при участии специалистов в области логопедии, дефектологии, нейропсихологии, клинической психологии, ABA-терапии, сенсорной интеграции и массажа.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-pink-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('neuro')">
+                    <div class="text-6xl mb-4">🧠</div>
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">Нейропсихология</h3>
+                    <p class="text-gray-700 mb-6">Комплексная диагностика и коррекция с использованием современных методик</p>
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition shadow-lg">Подробнее</button>
+                </div>
+                
+                <div class="bg-purple-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('logo')">
+                    <div class="text-6xl mb-4">🗣️</div>
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">Логопедия</h3>
+                    <p class="text-gray-700 mb-6">Работа над развитием речи, артикуляцией и коммуникативными навыками</p>
+                    <button class="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition shadow-lg">Подробнее</button>
+                </div>
+                
+                <div class="bg-teal-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('aba')">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold text-teal-600 mb-4">ABA-терапия</h3>
+                    <p class="text-gray-700 mb-6">Прикладной анализ поведения для коррекции и развития навыков</p>
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition shadow-lg">Подробнее</button>
+                </div>
+                
+                <div class="bg-orange-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('sensory')">
+                    <div class="text-6xl mb-4">🌈</div>
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">Сенсорная интеграция</h3>
+                    <p class="text-gray-700 mb-6">Развитие сенсомоторной сферы и координации движений</p>
+                    <button class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition shadow-lg">Подробнее</button>
+                </div>
+                
+                <div class="bg-yellow-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('massage')">
+                    <div class="text-6xl mb-4">💆</div>
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-4">Детский массаж</h3>
+                    <p class="text-gray-700 mb-6">Оздоровительный массаж для правильного физического развития</p>
+                    <button class="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-600 transition shadow-lg">Подробнее</button>
+                </div>
+                
+                <div class="bg-green-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('afk')">
+                    <div class="text-6xl mb-4">🤸</div>
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">Адаптивная физкультура</h3>
+                    <p class="text-gray-700 mb-6">Физическая активность с учётом индивидуальных особенностей</p>
+                    <button class="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition shadow-lg">Подробнее</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-20 bg-purple-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">
+                <span style="color: #C7A3FF;">Наш</span><span style="color: #FF9FF3;">и</span> 
+                <span style="color: #FFB84D;">прог</span><span style="color: #4ECDC4;">рам</span><span style="color: #FF6B6B;">мы</span>
+            </h2>
+            <div class="rainbow-line w-48 mx-auto mb-12"></div>
+            
+            <p class="text-xl text-gray-700 text-center mb-16 max-w-3xl mx-auto">
+                Для каждого возраста мы предлагаем определённую программу, которая учитывает психологические и физиологические особенности малышей.
+            </p>
+
+            <!-- Early Development Group -->
+            <div class="bg-white rounded-3xl p-8 mb-8 shadow-lg max-w-5xl mx-auto card-hover">
+                <div class="flex items-center mb-6">
+                    <div class="text-5xl mr-4">👶</div>
+                    <h3 class="text-3xl font-bold text-purple-600">Группа раннего развития</h3>
+                </div>
+                <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                    Начните заниматься с малышом с раннего возраста — приходите на развивающие занятия для детей от 2 лет. Так вы заложите фундамент, чтобы в будущем ваш ребенок легко адаптировался в социуме, быстро запоминал новую информацию и радовал вас своими успехами.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    Малыши занимаются со своими сверстниками в небольших группах от 2-х до 4-х человек.
+                </p>
+            </div>
+
+            <!-- Mini Garden -->
+            <div class="bg-white rounded-3xl p-8 mb-8 shadow-lg max-w-5xl mx-auto card-hover cursor-pointer" onclick="openModal('minigarden')">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="text-5xl mr-4">🏫</div>
+                        <h3 class="text-3xl font-bold text-pink-600">Мини-сад</h3>
+                    </div>
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition shadow-lg">Подробнее</button>
+                </div>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    Для детей от 3 до 6 лет. На 2-4 часа в день
+                </p>
+                <p class="text-gray-600 mt-4">
+                    Игровые занятия, физкультура, развивающие упражнения, творчество, музыка и адаптационные занятия
+                </p>
+            </div>
+
+            <!-- Communication Groups -->
+            <div class="bg-white rounded-3xl p-8 shadow-lg max-w-5xl mx-auto card-hover cursor-pointer" onclick="openModal('communication')">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="text-5xl mr-4">👥</div>
+                        <h3 class="text-3xl font-bold text-teal-600">Коммуникативные группы</h3>
+                    </div>
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition shadow-lg">Подробнее</button>
+                </div>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    Игровые занятия в малой инклюзивной группе для детей с РАС. Развитие эмоционального контакта, подражания и коммуникаций.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Individual Sessions -->
+    <section id="individual" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">
+                <span style="color: #FF6B6B;">Индивидуальн</span><span style="color: #4ECDC4;">ые</span> 
+                <span style="color: #C7A3FF;">занятия</span>
+            </h2>
+            <div class="rainbow-line w-48 mx-auto mb-16"></div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Neuropsychological Correction -->
+                <div class="bg-pink-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('neuroprog')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🧠</div>
+                        <h3 class="text-2xl font-bold text-pink-600">Нейропсихологическая коррекция</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Комплексный подход с двигательной активностью и когнитивными методами</p>
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition">Подробнее</button>
+                </div>
+
+                <!-- Speech Therapist -->
+                <div class="bg-purple-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('logodef')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🗣️</div>
+                        <h3 class="text-2xl font-bold text-purple-600">Логопед-дефектолог</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Диагностика речи, индивидуальная программа коррекции</p>
+                    <button class="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition">Подробнее</button>
+                </div>
+
+                <!-- ZPPR Correction -->
+                <div class="bg-orange-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('zppr')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">📈</div>
+                        <h3 class="text-2xl font-bold text-orange-600">Коррекция ЗПРР</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Работа с задержкой психического и речевого развития</p>
+                    <button class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition">Подробнее</button>
+                </div>
+
+                <!-- ZRR Correction -->
+                <div class="bg-yellow-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('zrr')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">💬</div>
+                        <h3 class="text-2xl font-bold text-yellow-600">Коррекция ЗРР</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Задержка речевого развития, работа с коммуникативными навыками</p>
+                    <button class="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-600 transition">Подробнее</button>
+                </div>
+
+                <!-- Denver Model -->
+                <div class="bg-blue-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('denver')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🎓</div>
+                        <h3 class="text-2xl font-bold text-blue-600">Денверская модель</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Методика для детей 1-4 лет с ранними признаками РАС</p>
+                    <button class="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">Подробнее</button>
+                </div>
+
+                <!-- Forbrain -->
+                <div class="bg-green-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('forbrain')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🎧</div>
+                        <h3 class="text-2xl font-bold text-green-600">Наушники Forbrain</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Уникальное устройство для улучшения речи, внимания и памяти</p>
+                    <button class="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition">Подробнее</button>
+                </div>
+
+                <!-- ABA Therapy -->
+                <div class="bg-indigo-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('aba')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🎯</div>
+                        <h3 class="text-2xl font-bold text-indigo-600">ABA-терапия</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Поведенческий анализ для развития навыков и снижения нежелательного поведения</p>
+                    <button class="bg-indigo-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-600 transition">Подробнее</button>
+                </div>
+
+                <!-- Sensory Integration -->
+                <div class="bg-teal-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('sensory')">
+                    <div class="flex items-center mb-4">
+                        <div class="text-4xl mr-3">🤸</div>
+                        <h3 class="text-2xl font-bold text-teal-600">Сенсорная интеграция</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">Развитие сенсорных систем через двигательные и игровые упражнения</p>
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition">Подробнее</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">
+                <span style="color: #C7A3FF;">Цены</span> <span style="color: #FF9FF3;">и</span> 
+                <span style="color: #4ECDC4;">тарифы</span>
+            </h2>
+            <div class="rainbow-line w-48 mx-auto mb-16"></div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Price Card 1 -->
+                <div class="bg-pink-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">Запуск речи</h3>
+                    <p class="text-gray-600 mb-2">Возраст: от 2,5 лет</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 45 минут</p>
+                    <div class="border-t-2 border-pink-300 pt-4">
+                        <p class="text-3xl font-bold text-pink-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                        <p class="text-sm text-gray-500 mt-2">Консультация: 2000 ₽</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 2 -->
+                <div class="bg-purple-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">Логопед-дефектолог</h3>
+                    <p class="text-gray-600 mb-2">Возраст: 3-4 года</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 45-60 минут</p>
+                    <div class="border-t-2 border-purple-300 pt-4">
+                        <p class="text-3xl font-bold text-purple-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                        <p class="text-sm text-gray-500 mt-2">Консультация: 2000 ₽</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 3 -->
+                <div class="bg-teal-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-4">Логопед индивидуально</h3>
+                    <p class="text-gray-600 mb-2">Возраст: 4-7 лет</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-teal-300 pt-4">
+                        <p class="text-3xl font-bold text-teal-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                        <p class="text-sm text-gray-500 mt-2">Консультация: 2000 ₽</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 4 -->
+                <div class="bg-orange-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">ABA-терапия</h3>
+                    <p class="text-gray-600 mb-2">Индивидуальная работа</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-orange-300 pt-4">
+                        <p class="text-3xl font-bold text-orange-600 mb-2">16 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                        <p class="text-sm text-gray-500 mt-2">Консультация: 2000 ₽</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 5 -->
+                <div class="bg-blue-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">Нейропсихолог</h3>
+                    <p class="text-gray-600 mb-2">Комплексная коррекция</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-blue-300 pt-4">
+                        <p class="text-3xl font-bold text-blue-600 mb-2">16 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                        <p class="text-sm text-gray-500 mt-2">Консультация: 3000 ₽</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 6 -->
+                <div class="bg-yellow-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-4">Сенсорная интеграция</h3>
+                    <p class="text-gray-600 mb-2">Групповые занятия</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-yellow-300 pt-4">
+                        <p class="text-3xl font-bold text-yellow-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 7 -->
+                <div class="bg-green-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">Массаж</h3>
+                    <p class="text-gray-600 mb-2">Детский, профилактический</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 30 минут</p>
+                    <div class="border-t-2 border-green-300 pt-4">
+                        <p class="text-3xl font-bold text-green-600 mb-2">15 000 ₽</p>
+                        <p class="text-sm text-gray-600">10 занятий / 2-3 раза в неделю</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 8 -->
+                <div class="bg-red-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-red-600 mb-4">Адаптивная физкультура</h3>
+                    <p class="text-gray-600 mb-2">Групповые занятия</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-red-300 pt-4">
+                        <p class="text-3xl font-bold text-red-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                    </div>
+                </div>
+                
+                <!-- Price Card 9 -->
+                <div class="bg-indigo-100 rounded-3xl p-6 card-hover">
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">Коммуникативные группы</h3>
+                    <p class="text-gray-600 mb-2">Игровые занятия</p>
+                    <p class="text-gray-600 mb-4">Продолжительность: 60 минут</p>
+                    <div class="border-t-2 border-indigo-300 pt-4">
+                        <p class="text-3xl font-bold text-indigo-600 mb-2">14 000 ₽</p>
+                        <p class="text-sm text-gray-600">8 занятий / 2 раза в неделю</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-lg text-gray-600 mb-4">Срок действия всех абонементов: 1 месяц</p>
+                <p class="text-sm text-gray-500">Цены актуальны на 2025 год</p>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#contacts" class="bg-purple-500 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-purple-600 transition shadow-lg inline-block">
+                    Записаться на консультацию
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">
+                <span style="color: #FF6B6B;">Конт</span><span style="color: #FFB84D;">акт</span><span style="color: #4ECDC4;">ы</span>
+            </h2>
+            <div class="rainbow-line w-48 mx-auto mb-16"></div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div>
+                    <h3 class="text-3xl font-bold text-purple-600 mb-6">Свяжитесь с нами</h3>
+                    <div class="space-y-4 text-lg text-gray-700">
+                        <p class="flex items-center">
+                            <span class="text-3xl mr-4">📍</span>
+                            <span>г. Москва, ул. Примерная, д. 1</span>
+                        </p>
+                        <p class="flex items-center">
+                            <span class="text-3xl mr-4">📞</span>
+                            <span>+7 (999) 123-45-67</span>
+                        </p>
+                        <p class="flex items-center">
+                            <span class="text-3xl mr-4">📧</span>
+                            <span>info@tamatama.ru</span>
+                        </p>
+                        <p class="flex items-center">
+                            <span class="text-3xl mr-4">⏰</span>
+                            <span>Пн-Пт: 9:00 - 20:00<br>Сб-Вс: 10:00 - 18:00</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-6">Оставьте заявку</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Ваше имя" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
+                        <input type="tel" placeholder="Телефон" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
+                        <input type="email" placeholder="Email" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
+                        <textarea placeholder="Ваше сообщение" rows="4" class="w-full px-6 py-3 rounded-3xl border-2 border-purple-200 focus:border-purple-500 outline-none"></textarea>
+                        <button type="submit" class="w-full bg-purple-500 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-600 transition shadow-lg">
+                            Отправить заявку
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple-600 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="text-4xl font-bold mb-2">
+                        <span style="color: #FFE66D;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #4ECDC4;">а</span>
+                        <span style="color: #95E1D3;">Т</span><span style="color: #FFE66D;">а</span><span style="color: #FFB84D;">м</span><span style="color: #FF9FF3;">а</span>
+                    </div>
+                    <p class="text-purple-200">Центр раннего развития</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://t.me/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
+                    <a href="https://wa.me/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
+                    <a href="https://instagram.com/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-purple-200">
+                <p>&copy; 2025 Тама Тама. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Neuropsychology Modal -->
+    <div id="modal-neuro" class="modal" onclick="if(event.target === this) closeModal('neuro')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-pink-600">🧠 Нейропсихология</h2>
+                    <button onclick="closeModal('neuro')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Нейропсихологическое обследование позволяет выявить специфические особенности развития высших психических функций (ВПФ) ребенка и рекомендуется к проведению не ранее 4-х лет.</p>
+                    <p><strong>Рекомендуется при следующих проблемах:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Трудности в усвоении учебного материала</li>
+                        <li>Проблемы с концентрацией внимания и памятью</li>
+                        <li>Нарушения речевого развития</li>
+                        <li>Сложности с пространственной ориентацией</li>
+                        <li>Эмоциональные и поведенческие трудности</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Speech Therapy Modal -->
+    <div id="modal-logo" class="modal" onclick="if(event.target === this) closeModal('logo')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-purple-600">🗣️ Логопедия</h2>
+                    <button onclick="closeModal('logo')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Логопедические занятия направлены на развитие всех компонентов речи: звукопроизношения, фонематического слуха, лексико-грамматического строя и связной речи.</p>
+                    <p><strong>Мы помогаем при:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Задержке речевого развития (ЗРР)</li>
+                        <li>Нарушениях звукопроизношения</li>
+                        <li>Общем недоразвитии речи (ОНР)</li>
+                        <li>Дизартрии и других речевых нарушениях</li>
+                        <li>Проблемах с чтением и письмом</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA Therapy Modal -->
+    <div id="modal-aba" class="modal" onclick="if(event.target === this) closeModal('aba')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-teal-600">🎯 ABA-терапия</h2>
+                    <button onclick="closeModal('aba')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Методика "Applied Behavior Analysis" (ABA-терапия) является эффективным и научно доказанным методом коррекции поведения и развития навыков для детей с различными особенностями развития, включая расстройства аутистического спектра (аутизм).</p>
+                    <p><strong>Основные направления работы:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Развитие коммуникативных навыков</li>
+                        <li>Формирование социального взаимодействия</li>
+                        <li>Обучение навыкам самообслуживания</li>
+                        <li>Коррекция нежелательного поведения</li>
+                        <li>Развитие академических навыков</li>
+                    </ul>
+                    <p class="mt-6">Основная цель терапии - формирование и развитие недостающих навыков и коррекция проблемного поведения через последствия и поощрение положительных результатов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensory Integration Modal -->
+    <div id="modal-sensory" class="modal" onclick="if(event.target === this) closeModal('sensory')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-orange-600">🌈 Сенсорная интеграция</h2>
+                    <button onclick="closeModal('sensory')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Сенсорная интеграция - это процесс, в ходе которого нервная система получает информацию от органов чувств и преобразует её в соответствующие двигательные и поведенческие реакции.</p>
+                    <p><strong>Помогаем детям с:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Нарушениями сенсорной обработки</li>
+                        <li>Проблемами координации движений</li>
+                        <li>Гипер- или гипочувствительностью</li>
+                        <li>Трудностями в обучении</li>
+                        <li>Поведенческими особенностями</li>
+                    </ul>
+                    <p class="mt-6"><strong>Методы работы:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Занятия в сенсорной комнате</li>
+                        <li>Развитие тактильной чувствительности</li>
+                        <li>Упражнения на балансировочном оборудовании</li>
+                        <li>Игры с различными текстурами</li>
+                        <li>Вестибулярная стимуляция</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Massage Modal -->
+    <div id="modal-massage" class="modal" onclick="if(event.target === this) closeModal('massage')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-yellow-600">💆 Детский массаж</h2>
+                    <button onclick="closeModal('massage')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Детский массаж - важная составляющая комплексного подхода к развитию и оздоровлению ребенка. Способствует правильному физическому и психоэмоциональному развитию.</p>
+                    <p>Массаж (детский, профилактический) — это замечательная процедура, признанно оказывающая хороший оздоровительный эффект. Он способствует правильному физическому развитию, улучшает кровоснабжение тканей и эластичность мышц, благотворно влияет на нервную систему.</p>
+                    <p><strong>Показания к массажу:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Нарушения мышечного тонуса</li>
+                        <li>Задержка моторного развития</li>
+                        <li>Проблемы с осанкой</li>
+                        <li>Неврологические нарушения</li>
+                        <li>Общеукрепляющий массаж</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AFK Modal -->
+    <div id="modal-afk" class="modal" onclick="if(event.target === this) closeModal('afk')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-green-600">🤸 Адаптивная физкультура</h2>
+                    <button onclick="closeModal('afk')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Физическая активность играет значительную роль в развитии ребенка. Адаптивная физическая культура предоставляет детям с особенностями возможность заниматься спортом, улучшать свое физическое развитие и социальные навыки.</p>
+                    <p><strong>Цели занятий АФК:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Развитие координации и ловкости</li>
+                        <li>Укрепление мышечного корсета</li>
+                        <li>Улучшение пространственной ориентации</li>
+                        <li>Формирование правильной осанки</li>
+                        <li>Развитие крупной моторики</li>
+                    </ul>
+                    <p class="mt-6">Тренировки проводятся в игровой форме с целью развить интерес к подвижным играм и соревнованиям со сверстниками, развить коммуникативные навыки и необходимый компонент дисциплины.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Garden Modal -->
+    <div id="modal-minigarden" class="modal" onclick="if(event.target === this) closeModal('minigarden')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-pink-600">🏫 Мини-сад</h2>
+                    <button onclick="closeModal('minigarden')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p><strong>Мини-сад на 2-4 часа в день для детей от 3 до 6 лет</strong></p>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🎮 Игровые занятия</h4>
+                        <p>Дети через игру развивают моторику, воображение, социальные навыки.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🏃 Физкультура и подвижные игры</h4>
+                        <p>Упражнения для развития крупной моторики, координации и здоровья с использованием ярких спортивных модулей и массажных ковриков. В течение дня ребята играют в подвижные игры в перерывах между занятиями.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">📚 Развивающие упражнения</h4>
+                        <p>Занятия на развитие речи, памяти, внимания, логики и мышления. Знакомимся с окружающим миром: изучаем животных, природные явления и времена года. Изучаем цифры, буквы, геометрические фигуры и цвета.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">👥 Социальные игры и общение</h4>
+                        <p>Учим взаимодействовать с другими детьми.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🎨 Творчество и рукоделие</h4>
+                        <p>Рисуем, лепим, вырезаем - развиваем мелкую моторику, творческое мышление с помощью специальных упражнений.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🎵 Музыкальные занятия</h4>
+                        <p>Пение, музыка, ритмика для развития слуха и чувства ритма.</p>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🤝 Адаптационные занятия</h4>
+                        <p>Используем специальную методику адаптации ребенка в детском коллективе, чем помогаем ребёнку мягко и безболезненно интегрироваться в новый коллектив.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neuropsychological Program Modal -->
+    <div id="modal-neuroprog" class="modal" onclick="if(event.target === this) closeModal('neuroprog')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-pink-600">🧠 Нейропсихологическая коррекция</h2>
+                    <button onclick="closeModal('neuroprog')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Включает в себя комплексный подход, позволяющий использовать разные виды методик, с учетом индивидуальных особенностей ребёнка.</p>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">💪 Двигательная активность:</h4>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Дыхательная гимнастика</strong> - нацелена на активное снабжение тканей и органов кислородом, помогают снизить степень эмоционального возбуждения</li>
+                            <li><strong>Растяжка и двигательные упражнения</strong> - позволяют ребенку лучше координировать свои движения и чувствовать своё тело</li>
+                            <li><strong>Глазодвигательная гимнастика</strong> - благотворно влияет на зрительные каналы восприятия</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6">
+                        <h4 class="font-bold text-xl mb-3">🧩 Когнитивные методы:</h4>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li>Упражнения по развитию артикуляции</li>
+                            <li>Задания для совершенствования познавательных способностей</li>
+                            <li>Упражнения на улучшение памяти, логики, концентрации внимания</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Speech Therapist Program Modal -->
+    <div id="modal-logodef" class="modal" onclick="if(event.target === this) closeModal('logodef')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-purple-600">🗣️ Логопед-дефектолог</h2>
+                    <button onclick="closeModal('logodef')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Работа логопеда с детьми со сложными нарушениями речи и коммуникации, включая детей с РАС требует особенной подготовки и знаний. В этой работе слаженно участвуют специалисты различных профилей - АВА-терапевты и детские психологи.</p>
+                    
+                    <p><strong>Логопед-дефектолог проводит:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Комплексную диагностику нарушений и отклонений в развитии высших психических функций: памяти, внимания, счёта, мышления и эмоций</li>
+                        <li>Обследует состояние речи ребёнка по направлениям: произносительная сторона, фонематические процессы, словарь, грамматический строй речи, связная речь</li>
+                        <li>Разработку индивидуальной программы коррекции речи</li>
+                        <li>Регулярные занятия по артикуляции, лексике, грамматике</li>
+                    </ul>
+
+                    <p class="mt-4">Перед началом работы логопед анализирует актуальный уровень развития речевых навыков ребенка, уровень понимания речи, особенности произносительной стороны речи, фонематический слух и другие необходимые параметры.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ZPPR Modal -->
+    <div id="modal-zppr" class="modal" onclick="if(event.target === this) closeModal('zppr')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-orange-600">📈 Коррекция ЗПРР</h2>
+                    <button onclick="closeModal('zppr')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Задержка психического и речевого развития (ЗПРР) является нарушением, которое может затронуть ребенка на самых ранних этапах его жизни, оказывая значительное влияние на его будущее.</p>
+                    
+                    <p><strong>Признаки ЗПРР:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Отставание по сравнению с ровесниками</li>
+                        <li>Проблемы с социальными навыками и взаимодействием с окружающими</li>
+                        <li>Ограниченный круг интересов и поведение, выходящее за рамки общепринятого</li>
+                        <li>Неправильное восприятие и обработка сенсорной информации (звуков, запахов, вкусов)</li>
+                    </ul>
+
+                    <p class="mt-6"><strong>Факторы успешной коррекции:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li><strong>Раннее начало коррекции</strong> - чем раньше начинается работа, тем лучше прогнозы</li>
+                        <li><strong>Поддержка семьи</strong> - вовлечение в процесс играет ключевую роль</li>
+                        <li><strong>Терпение и последовательность</strong> - коррекционная работа требует времени</li>
+                    </ul>
+
+                    <p class="mt-4 text-gray-600 italic">Способность детского мозга к адаптации позволяет ему активно перестраиваться и развиваться даже при наличии задержки развития. Современные методики позволяют добиться значительной положительной динамики у большинства детей.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ZRR Modal -->
+    <div id="modal-zrr" class="modal" onclick="if(event.target === this) closeModal('zrr')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-yellow-600">💬 Коррекция ЗРР</h2>
+                    <button onclick="closeModal('zrr')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Коррекция задержки речевого развития (ЗРР) у детей. Мы предлагаем не только ознакомиться с основными признаками, но и рассмотреть подробности программ коррекционных занятий по разным направлениям.</p>
+                    
+                    <p><strong>Симптомы ЗРР:</strong></p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg">Коммуникативные:</h4>
+                        <ul class="list-disc list-inside space-y-1 ml-4">
+                            <li>Трудности в установлении контакта с окружающими</li>
+                            <li>Ограниченная мимика и жесты при общении</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg">Речевые симптомы:</h4>
+                        <ul class="list-disc list-inside space-y-1 ml-4">
+                            <li>Маленький словарный запас</li>
+                            <li>Проблемы со звукопроизношением</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg">Поведенческие:</h4>
+                        <ul class="list-disc list-inside space-y-1 ml-4">
+                            <li>Гиперактивность и агрессивность</li>
+                            <li>Сниженная концентрация внимания</li>
+                        </ul>
+                    </div>
+
+                    <p class="mt-6 text-gray-600 italic">Знание симптомов помогает родителям вовремя выявить особенности развития и обратиться к педагогам за помощью.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Denver Model Modal -->
+    <div id="modal-denver" class="modal" onclick="if(event.target === this) closeModal('denver')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-blue-600">🎓 Денверская модель</h2>
+                    <button onclick="closeModal('denver')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Денверская модель раннего вмешательства (ESDM) - это зарекомендовавшая себя во всем мире, высокоэффективная методика помощи детям с ранними признаками расстройства аутистического спектра в возрасте от 1 года до 4 лет, основанная на поведенческом подходе.</p>
+                    
+                    <p class="mt-6"><strong>Особенности метода:</strong></p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Раннее вмешательство (1-4 года)</li>
+                        <li>Основан на поведенческом подходе</li>
+                        <li>Научно доказанная эффективность</li>
+                        <li>Индивидуальный подход к каждому ребенку</li>
+                        <li>Вовлечение родителей в процесс</li>
+                    </ul>
+
+                    <p class="mt-6 bg-blue-50 p-4 rounded-2xl">
+                        <strong>Денверская модель</strong> признана одной из самых эффективных методик ранней помощи детям с РАС благодаря комплексному подходу и раннему началу вмешательства.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Communication Groups Modal -->
+    <div id="modal-communication" class="modal" onclick="if(event.target === this) closeModal('communication')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-teal-600">👥 Коммуникативные группы</h2>
+                    <button onclick="closeModal('communication')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Коммуникативная группа заключает в себе игровые занятия в малой инклюзивной группе, как средство помощи детям с РАС.</p>
+                    
+                    <p>Игровая методика предназначена для детей раннего возраста и направлена на развитие:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Эмоционального контакта</li>
+                        <li>Подражания</li>
+                        <li>Игровой инициативы</li>
+                        <li>Самостоятельности детей</li>
+                        <li>Вербальной и невербальной коммуникаций</li>
+                    </ul>
+
+                    <p class="mt-6"><strong>Цель группы:</strong></p>
+                    <p>Дать детям возможность наблюдать за сверстниками и перенимать их навыки в совместной игре без навязывания общения и требований. Дети будут находиться в сенсорной комнате, играть с игрушками и взаимодействовать друг с другом.</p>
+
+                    <p class="mt-6 bg-teal-50 p-4 rounded-2xl">
+                        Ведет занятия <strong>Нейропсихолог</strong> с поддержкой смежных специалистов.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forbrain Modal -->
+    <div id="modal-forbrain" class="modal" onclick="if(event.target === this) closeModal('forbrain')">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-4xl font-bold text-green-600">🎧 Наушники Forbrain</h2>
+                    <button onclick="closeModal('forbrain')" class="text-4xl text-gray-400 hover:text-gray-600">&times;</button>
+                </div>
+                <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+                    <p>Наушники Forbrain — уникальное устройство, которое используют на занятиях с логопедом и дефектологом для улучшения речи, внимания и памяти у детей. Эта технология работает на основе костной проводимости.</p>
+                    
+                    <p class="mt-6"><strong>Преимущества использования:</strong></p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg mb-2">🎤 Улучшение произношения и интонации</h4>
+                        <p>С помощью Forbrain ребенок начинает лучше контролировать звучание своего голоса, что помогает ему развивать четкость артикуляции и ритм речи. Особенно актуально для детей с нарушениями звукопроизношения, заиканием или трудностями с интонацией.</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg mb-2">🎯 Развитие внимания и концентрации</h4>
+                        <p>Наушники создают эффект «фокусировки» на голосе, что делает занятия более продуктивными и помогает ребенку оставаться сосредоточенным в течение всего урока.</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg mb-2">🧠 Укрепление памяти</h4>
+                        <p>Forbrain стимулирует мозговую активность, улучшая процесс запоминания новых слов и правил, что способствует более глубокому усвоению учебного материала.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileBackdrop = document.getElementById('mobileBackdrop');
+            const burgerBtn = document.querySelector('.burger-btn');
+            
+            if (mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                mobileBackdrop.classList.remove('active');
+                burgerBtn.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                mobileMenu.classList.add('active');
+                mobileBackdrop.classList.add('active');
+                burgerBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    
+        function openModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+                
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileBackdrop = document.getElementById('mobileBackdrop');
+                const burgerBtn = document.querySelector('.burger-btn');
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileBackdrop.classList.remove('active');
+                    burgerBtn.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время! 🌈');
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
