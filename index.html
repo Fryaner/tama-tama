@@ -45,8 +45,67 @@
             transition: transform 0.3s ease;
         }
         
-        .card-hover:hover {
-            transform: translateY(-10px);
+        @media (hover: hover) and (pointer: fine) {
+            .card-hover:hover {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Rainbow arc responsive positioning */
+        .rainbow-arc {
+            position: absolute;
+            left: 50%;
+            width: 100%;
+            max-width: 1536px;
+            height: 300px;
+            transform: translateX(-50%);
+        }
+        
+        @media (max-width: 640px) {
+            .rainbow-arc {
+                top: 10px;
+                height: 200px;
+            }
+        }
+        
+        @media (min-width: 641px) and (max-width: 768px) {
+            .rainbow-arc {
+                top: 15px;
+                height: 250px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .rainbow-arc {
+                top: 20px;
+                height: 300px;
+            }
+        }
+        
+        /* Disable all hover effects on touch devices */
+        @media (hover: none) {
+            a:hover,
+            button:hover,
+            .hover\:scale-110:hover,
+            .hover\:bg-pink-600:hover,
+            .hover\:bg-purple-600:hover,
+            .hover\:bg-teal-600:hover,
+            .hover\:bg-orange-600:hover,
+            .hover\:bg-yellow-600:hover,
+            .hover\:bg-green-600:hover,
+            .hover\:bg-blue-600:hover,
+            .hover\:bg-indigo-600:hover,
+            .hover\:text-pink-500:hover,
+            .hover\:text-purple-500:hover,
+            .hover\:text-teal-500:hover,
+            .hover\:text-orange-500:hover,
+            .hover\:text-blue-500:hover,
+            .hover\:bg-opacity-30:hover {
+                transform: none !important;
+                background-color: inherit !important;
+                color: inherit !important;
+                scale: 1 !important;
+            }
         }
         
         .rainbow-line {
@@ -219,6 +278,27 @@
             .burger-btn {
                 display: flex;
             }
+            
+            /* Section headings smaller on mobile */
+            section h2.text-5xl {
+                font-size: 2rem !important;
+                line-height: 2.5rem !important;
+            }
+            
+            /* Hero heading adjustment */
+            .text-6xl {
+                font-size: 2.5rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            /* Subsection headings */
+            h3.text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            h3.text-2xl {
+                font-size: 1.25rem !important;
+            }
         }
     </style>
 </head>
@@ -229,7 +309,7 @@
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4">
-                    <img src="lXYbAvucAcfB2RwqnFjuN" alt="Тама Тама" class="h-16 md:h-20 w-auto">
+                    <img src="./tama.png" alt="Тама Тама" class="h-12 md:h-14 w-auto">
                     <div class="text-2xl md:text-3xl font-bold">
                         <span style="color: #FF6B6B;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FFE66D;">м</span><span style="color: #4ECDC4;">а</span>
                         <span style="color: #95E1D3;">Т</span><span style="color: #C7A3FF;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #FF6B6B;">а</span>
@@ -278,15 +358,15 @@
             <a href="#contacts" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-yellow-200 transition transform hover:translate-x-2 py-3 px-4 rounded-xl hover:bg-white hover:bg-opacity-10">📞 Контакты</a>
             
             <div class="pt-8">
-                <a href="#contacts" onclick="toggleMobileMenu()" class="block bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-5 rounded-full font-bold hover:from-pink-600 hover:to-purple-600 transition text-center text-xl shadow-2xl">
-                    ✨ Записаться
+                <a href="https://wa.me/79991234567?text=Здравствуйте!%20Хочу%20записаться%20на%20консультацию" target="_blank" class="block bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-5 rounded-full font-bold hover:from-green-600 hover:to-teal-600 transition text-center text-xl shadow-2xl">
+                    💬 Записаться в WhatsApp
                 </a>
             </div>
             
             <div class="flex justify-center space-x-8 pt-8">
-                <a href="https://t.me/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
-                <a href="https://wa.me/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
-                <a href="https://instagram.com/" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
+                <a href="https://t.me/tamatama" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
+                <a href="https://wa.me/79991234567" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
+                <a href="https://instagram.com/tamatama" target="_blank" class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-4xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
             </div>
         </div>
     </div>
@@ -294,7 +374,7 @@
     <!-- Hero Section -->
     <section class="relative py-20 overflow-hidden bg-sky-100">
         <!-- Rainbow Arc -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-6xl" style="height: 300px;">
+        <div class="rainbow-arc">
             <svg viewBox="0 0 1000 300" class="w-full h-full opacity-30">
                 <path d="M 0,300 Q 500,0 1000,300" fill="none" stroke="#FF6B6B" stroke-width="40" opacity="0.6"/>
                 <path d="M 0,300 Q 500,30 1000,300" fill="none" stroke="#FFB84D" stroke-width="40" opacity="0.6"/>
@@ -305,19 +385,19 @@
                 <path d="M 0,300 Q 500,180 1000,300" fill="none" stroke="#FF9FF3" stroke-width="40" opacity="0.6"/>
             </svg>
         </div>
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-6 relative" style="z-index: 1;">
             <div class="text-center max-w-4xl mx-auto">
-                <h1 class="text-6xl md:text-8xl font-extrabold mb-8 rainbow-text leading-tight">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold mb-8 rainbow-text leading-tight">
                     <span>Т</span><span>а</span><span>м</span><span>а</span> <span>Т</span><span>а</span><span>м</span><span>а</span>
                 </h1>
-                <div class="rainbow-line w-64 mx-auto mb-8"></div>
+                <div class="rainbow-line w-32 md:w-48 mx-auto mb-8"></div>
                 <p class="text-2xl md:text-3xl text-gray-700 mb-8 font-semibold">
                     Творим будущее сегодня
                 </p>
                 <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
                     Работаем по принципу комплексного подхода к раннему развитию и коррекции нарушений у детей. Наша миссия направлена на желание помочь ребёнку развиваться и адаптироваться к окружающей среде 🌈
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <a href="#programs" class="bg-purple-500 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-purple-600 transition shadow-lg">
                         Наши программы
                     </a>
@@ -347,7 +427,7 @@
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <div class="bg-pink-100 p-8 rounded-3xl text-center card-hover cursor-pointer" onclick="openModal('neuro')">
                     <div class="text-6xl mb-4">🧠</div>
                     <h3 class="text-2xl font-bold text-pink-600 mb-4">Нейропсихология</h3>
@@ -396,11 +476,23 @@
     <!-- Programs Section -->
     <section id="programs" class="py-20 bg-purple-50">
         <div class="container mx-auto px-6">
-            <h2 class="text-5xl font-bold text-center mb-4">
-                <span style="color: #C7A3FF;">Наш</span><span style="color: #FF9FF3;">и</span> 
-                <span style="color: #FFB84D;">прог</span><span style="color: #4ECDC4;">рам</span><span style="color: #FF6B6B;">мы</span>
-            </h2>
-            <div class="rainbow-line w-48 mx-auto mb-12"></div>
+            <!-- Mascot Character -->
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <div class="absolute -top-4 -right-4 bg-yellow-400 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg animate-bounce">
+                        🎉 Смотрите!
+                    </div>
+                    <img src="./tama.png" alt="Маскот Тама Тама" class="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl transform hover:scale-110 transition-transform duration-300">
+                </div>
+            </div>
+            
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-5xl font-bold mb-4">
+                    <span style="color: #C7A3FF;">Наш</span><span style="color: #FF9FF3;">и</span> 
+                    <span style="color: #FFB84D;">прог</span><span style="color: #4ECDC4;">рам</span><span style="color: #FF6B6B;">мы</span>
+                </h2>
+                <div class="rainbow-line w-48 mx-auto"></div>
+            </div>
             
             <p class="text-xl text-gray-700 text-center mb-16 max-w-3xl mx-auto">
                 Для каждого возраста мы предлагаем определённую программу, которая учитывает психологические и физиологические особенности малышей.
@@ -408,47 +500,53 @@
 
             <!-- Early Development Group -->
             <div class="bg-white rounded-3xl p-8 mb-8 shadow-lg max-w-5xl mx-auto card-hover">
-                <div class="flex items-center mb-6">
-                    <div class="text-5xl mr-4">👶</div>
-                    <h3 class="text-3xl font-bold text-purple-600">Группа раннего развития</h3>
+                <div class="flex flex-col md:flex-row items-center mb-6 gap-4 text-center md:text-left">
+                    <div class="text-5xl">👶</div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-purple-600">Группа раннего развития</h3>
                 </div>
                 <p class="text-gray-700 text-lg mb-6 leading-relaxed">
                     Начните заниматься с малышом с раннего возраста — приходите на развивающие занятия для детей от 2 лет. Так вы заложите фундамент, чтобы в будущем ваш ребенок легко адаптировался в социуме, быстро запоминал новую информацию и радовал вас своими успехами.
                 </p>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600">
                     Малыши занимаются со своими сверстниками в небольших группах от 2-х до 4-х человек.
                 </p>
             </div>
 
             <!-- Mini Garden -->
             <div class="bg-white rounded-3xl p-8 mb-8 shadow-lg max-w-5xl mx-auto card-hover cursor-pointer" onclick="openModal('minigarden')">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <div class="text-5xl mr-4">🏫</div>
-                        <h3 class="text-3xl font-bold text-pink-600">Мини-сад</h3>
+                <div class="flex flex-col md:flex-row items-center md:justify-between gap-4 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-0">
+                        <div class="text-5xl">🏫</div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-pink-600">Мини-сад</h3>
                     </div>
-                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition shadow-lg">Подробнее</button>
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition shadow-lg hidden md:block w-auto max-w-xs text-center">Подробнее</button>
                 </div>
-                <p class="text-gray-700 text-lg leading-relaxed">
+                <p class="text-gray-700 text-lg leading-relaxed mb-4">
                     Для детей от 3 до 6 лет. На 2-4 часа в день
                 </p>
-                <p class="text-gray-600 mt-4">
+                <p class="text-gray-600 mb-6">
                     Игровые занятия, физкультура, развивающие упражнения, творчество, музыка и адаптационные занятия
                 </p>
+                <div class="md:hidden">
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition shadow-lg w-full text-center">Подробнее</button>
+                </div>
             </div>
 
             <!-- Communication Groups -->
             <div class="bg-white rounded-3xl p-8 shadow-lg max-w-5xl mx-auto card-hover cursor-pointer" onclick="openModal('communication')">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <div class="text-5xl mr-4">👥</div>
-                        <h3 class="text-3xl font-bold text-teal-600">Коммуникативные группы</h3>
+                <div class="flex flex-col md:flex-row items-center md:justify-between gap-4 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-0">
+                        <div class="text-5xl">👥</div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-teal-600">Коммуникативные группы</h3>
                     </div>
-                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition shadow-lg">Подробнее</button>
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition shadow-lg hidden md:block w-auto max-w-xs text-center">Подробнее</button>
                 </div>
-                <p class="text-gray-700 text-lg leading-relaxed">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
                     Игровые занятия в малой инклюзивной группе для детей с РАС. Развитие эмоционального контакта, подражания и коммуникаций.
                 </p>
+                <div class="md:hidden">
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition shadow-lg w-full text-center">Подробнее</button>
+                </div>
             </div>
         </div>
     </section>
@@ -464,83 +562,83 @@
 
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 <!-- Neuropsychological Correction -->
-                <div class="bg-pink-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('neuroprog')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🧠</div>
-                        <h3 class="text-2xl font-bold text-pink-600">Нейропсихологическая коррекция</h3>
+                <div class="bg-pink-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('neuroprog')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🧠</div>
+                        <h3 class="text-xl lg:text-2xl font-bold text-pink-600">Нейропсихологическая коррекция</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Комплексный подход с двигательной активностью и когнитивными методами</p>
-                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Комплексный подход с двигательной активностью и когнитивными методами</p>
+                    <button class="bg-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- Speech Therapist -->
-                <div class="bg-purple-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('logodef')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🗣️</div>
+                <div class="bg-purple-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('logodef')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🗣️</div>
                         <h3 class="text-2xl font-bold text-purple-600">Логопед-дефектолог</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Диагностика речи, индивидуальная программа коррекции</p>
-                    <button class="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Диагностика речи, индивидуальная программа коррекции</p>
+                    <button class="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- ZPPR Correction -->
-                <div class="bg-orange-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('zppr')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">📈</div>
+                <div class="bg-orange-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('zppr')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">📈</div>
                         <h3 class="text-2xl font-bold text-orange-600">Коррекция ЗПРР</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Работа с задержкой психического и речевого развития</p>
-                    <button class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Работа с задержкой психического и речевого развития</p>
+                    <button class="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- ZRR Correction -->
-                <div class="bg-yellow-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('zrr')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">💬</div>
+                <div class="bg-yellow-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('zrr')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">💬</div>
                         <h3 class="text-2xl font-bold text-yellow-600">Коррекция ЗРР</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Задержка речевого развития, работа с коммуникативными навыками</p>
-                    <button class="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Задержка речевого развития, работа с коммуникативными навыками</p>
+                    <button class="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- Denver Model -->
-                <div class="bg-blue-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('denver')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🎓</div>
+                <div class="bg-blue-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('denver')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🎓</div>
                         <h3 class="text-2xl font-bold text-blue-600">Денверская модель</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Методика для детей 1-4 лет с ранними признаками РАС</p>
-                    <button class="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Методика для детей 1-4 лет с ранними признаками РАС</p>
+                    <button class="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- Forbrain -->
-                <div class="bg-green-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('forbrain')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🎧</div>
+                <div class="bg-green-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('forbrain')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🎧</div>
                         <h3 class="text-2xl font-bold text-green-600">Наушники Forbrain</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Уникальное устройство для улучшения речи, внимания и памяти</p>
-                    <button class="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Уникальное устройство для улучшения речи, внимания и памяти</p>
+                    <button class="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- ABA Therapy -->
-                <div class="bg-indigo-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('aba')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🎯</div>
+                <div class="bg-indigo-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('aba')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🎯</div>
                         <h3 class="text-2xl font-bold text-indigo-600">ABA-терапия</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Поведенческий анализ для развития навыков и снижения нежелательного поведения</p>
-                    <button class="bg-indigo-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Поведенческий анализ для развития навыков и снижения нежелательного поведения</p>
+                    <button class="bg-indigo-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-600 transition w-full text-center">Подробнее</button>
                 </div>
 
                 <!-- Sensory Integration -->
-                <div class="bg-teal-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer" onclick="openModal('sensory')">
-                    <div class="flex items-center mb-4">
-                        <div class="text-4xl mr-3">🤸</div>
+                <div class="bg-teal-50 rounded-3xl p-8 shadow-lg card-hover cursor-pointer flex flex-col" onclick="openModal('sensory')">
+                    <div class="flex flex-col md:flex-row items-center md:items-start mb-4 text-center md:text-left">
+                        <div class="text-4xl mb-4 md:mb-0 md:mr-3">🤸</div>
                         <h3 class="text-2xl font-bold text-teal-600">Сенсорная интеграция</h3>
                     </div>
-                    <p class="text-gray-700 mb-6">Развитие сенсорных систем через двигательные и игровые упражнения</p>
-                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition">Подробнее</button>
+                    <p class="text-gray-700 mb-6 text-center md:text-left flex-grow">Развитие сенсорных систем через двигательные и игровые упражнения</p>
+                    <button class="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-600 transition w-full text-center">Подробнее</button>
                 </div>
             </div>
         </div>
@@ -705,17 +803,31 @@
                     </div>
                 </div>
                 
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl shadow-lg">
-                    <h3 class="text-2xl font-bold text-purple-600 mb-6">Оставьте заявку</h3>
-                    <form class="space-y-4">
-                        <input type="text" placeholder="Ваше имя" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
-                        <input type="tel" placeholder="Телефон" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
-                        <input type="email" placeholder="Email" class="w-full px-6 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 outline-none">
-                        <textarea placeholder="Ваше сообщение" rows="4" class="w-full px-6 py-3 rounded-3xl border-2 border-purple-200 focus:border-purple-500 outline-none"></textarea>
-                        <button type="submit" class="w-full bg-purple-500 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-600 transition shadow-lg">
-                            Отправить заявку
-                        </button>
-                    </form>
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-green-50 to-teal-50 p-8 rounded-3xl shadow-lg text-center">
+                        <div class="text-6xl mb-4">💬</div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">Напишите нам в WhatsApp</h3>
+                        <p class="text-gray-700 mb-6">Быстрый ответ на все ваши вопросы</p>
+                        <a href="https://wa.me/79991234567?text=Здравствуйте!%20Хочу%20узнать%20подробнее%20о%20центре%20Тама%20Тама" target="_blank" class="inline-block w-full bg-green-500 text-white px-8 py-4 rounded-full font-bold hover:bg-green-600 transition shadow-lg">
+                            Открыть WhatsApp
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl shadow-lg text-center">
+                        <div class="text-6xl mb-4">✈️</div>
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">Напишите в Telegram</h3>
+                        <p class="text-gray-700 mb-6">Ответим в течение нескольких минут</p>
+                        <a href="https://t.me/tamatama" target="_blank" class="inline-block w-full bg-blue-500 text-white px-8 py-4 rounded-full font-bold hover:bg-blue-600 transition shadow-lg">
+                            Открыть Telegram
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-3xl shadow-lg text-center">
+                        <p class="text-lg font-semibold text-gray-700 mb-3">📞 Или позвоните:</p>
+                        <a href="tel:+79991234567" class="text-2xl font-bold text-orange-600 hover:text-orange-700 transition">
+                            +7 (999) 123-45-67
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -725,17 +837,20 @@
     <footer class="bg-purple-600 text-white py-12">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="text-4xl font-bold mb-2">
-                        <span style="color: #FFE66D;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #4ECDC4;">а</span>
-                        <span style="color: #95E1D3;">Т</span><span style="color: #FFE66D;">а</span><span style="color: #FFB84D;">м</span><span style="color: #FF9FF3;">а</span>
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="flex justify-center md:justify-start items-center gap-3 mb-2">
+                        <img src="./tama.png" alt="Маскот Тама Тама" class="h-10 w-auto">
+                        <div class="text-4xl font-bold">
+                            <span style="color: #FFE66D;">Т</span><span style="color: #FFB84D;">а</span><span style="color: #FF9FF3;">м</span><span style="color: #4ECDC4;">а</span>
+                            <span style="color: #95E1D3;">Т</span><span style="color: #FFE66D;">а</span><span style="color: #FFB84D;">м</span><span style="color: #FF9FF3;">а</span>
+                        </div>
                     </div>
                     <p class="text-purple-200">Центр раннего развития</p>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="https://t.me/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
-                    <a href="https://wa.me/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
-                    <a href="https://instagram.com/" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
+                    <a href="https://t.me/tamatama" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Telegram">✈️</a>
+                    <a href="https://wa.me/79991234567" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="WhatsApp">💬</a>
+                    <a href="https://instagram.com/tamatama" target="_blank" class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl hover:bg-opacity-30 hover:scale-110 transition" title="Instagram">📸</a>
                 </div>
             </div>
             <div class="text-center mt-8 text-purple-200">
@@ -1199,7 +1314,12 @@
             const modal = document.getElementById('modal-' + modalId);
             if (modal) {
                 modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                // Only restore scroll if no other modals are open and mobile menu is closed
+                const hasActiveModal = document.querySelector('.modal.active');
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (!hasActiveModal && !mobileMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'auto';
+                }
             }
         }
         
@@ -1208,7 +1328,6 @@
                 const modals = document.querySelectorAll('.modal.active');
                 modals.forEach(modal => {
                     modal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
                 });
                 
                 const mobileMenu = document.getElementById('mobileMenu');
@@ -1218,6 +1337,10 @@
                     mobileMenu.classList.remove('active');
                     mobileBackdrop.classList.remove('active');
                     burgerBtn.classList.remove('active');
+                }
+                
+                // Only restore scroll if no modals or menus are open
+                if (!document.querySelector('.modal.active') && !mobileMenu.classList.contains('active')) {
                     document.body.style.overflow = 'auto';
                 }
             }
@@ -1236,11 +1359,7 @@
             });
         });
 
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время! 🌈');
-            this.reset();
-        });
+
     </script>
 
 </body>
